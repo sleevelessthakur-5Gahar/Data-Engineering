@@ -24,8 +24,14 @@ public class TmdbAutomation {
     public static void main(String[] args) throws Exception {
 
     	ChromeOptions options = new ChromeOptions();
-        options.addArguments("--blink-settings=imagesEnabled=false"); // Disable images
-        
+    	// Existing argument to disable images
+    	options.addArguments("--blink-settings=imagesEnabled=false"); 
+
+    	// *** ADD THESE CRITICAL LINES FOR LINUX SERVER EXECUTION ***
+    	options.addArguments("--no-sandbox");
+    	options.addArguments("--disable-dev-shm-usage"); // Mitigates memory issues
+    	options.addArguments("--headless=new"); // Runs Chrome without a visible window
+
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
 
